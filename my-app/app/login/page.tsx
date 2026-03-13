@@ -1,11 +1,12 @@
 'use client';
 
+import { Suspense } from "react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL!;
 
-export default function LoginPage() {
+function LoginFormWithSearchParams() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("from") || "/layout-editor";
@@ -102,6 +103,14 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginFormWithSearchParams />
+    </Suspense>
   );
 }
 
